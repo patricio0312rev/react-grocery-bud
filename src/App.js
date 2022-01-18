@@ -4,14 +4,30 @@ import Alert from './components/alert.component';
 
 function App() {
   const [name, setName] = useState('');
-  const [list, setList] = useState('');
+  const [list, setList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('hello');
+    
+    // Form validation
+    if(!name) {
+      // Display alert if value is empty
+
+    } else if (name && isEditing) {
+      // Deal with edit
+    } else {
+      // Show alert
+      const newItem = {
+        id: new Date().getTime().toString(), 
+        title: name
+      }
+
+      setList([...list, newItem]);
+      setName('');
+    }
   }
 
   return (
@@ -30,7 +46,7 @@ function App() {
       </form>
 
       <div className="grocery-container">
-        <List />
+        <List items={list} />
         <button className="clear-btn">Clear Items</button>
       </div>
     </section>
