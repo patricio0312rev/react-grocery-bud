@@ -15,11 +15,13 @@ function App() {
     // Form validation
     if(!name) {
       // Display alert if value is empty
-
+      showAlert(true, 'danger', 'This value can not be empty');
     } else if (name && isEditing) {
       // Deal with edit
     } else {
       // Show alert
+      showAlert(true, 'success', 'Item added successfully')
+      
       const newItem = {
         id: new Date().getTime().toString(), 
         title: name
@@ -30,10 +32,18 @@ function App() {
     }
   }
 
+  const showAlert = (show = false, type="", msg="") => {
+    setAlert({
+      show,
+      type,
+      msg
+    })
+  }
+
   return (
     <section className="section-center">
       <form className="grocery-form" onSubmit={handleSubmit}>
-        {alert.show && <Alert />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
 
         <h3>Grocery Bud</h3>
 
